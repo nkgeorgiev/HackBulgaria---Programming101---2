@@ -7,10 +7,3 @@ def groupby(func, seq):
         else:
             d[key] = [value]
     return d
-
-def main():
-    print(groupby(lambda x: 'odd' if x % 2 else 'even', [1, 2, 3, 5, 8, 9, 10, 12]))
-
-
-if __name__ == '__main__':
-    main()

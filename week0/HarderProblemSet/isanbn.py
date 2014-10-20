@@ -17,12 +17,3 @@ def is_an_bn(word):
         a -= 1
     return a == 0
 
-
-def main():
-    print(is_an_bn("aaabbb"))
-    print(is_an_bn("aabbaabb"))
-    print(is_an_bn("rado"))
-
-
-if __name__ == '__main__':
-    main()

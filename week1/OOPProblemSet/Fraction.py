@@ -21,10 +21,3 @@ class Fraction:
 
     def __gt__(self, other):
         return self.num * other.denum < self.denum * other.num
-
-
-a = Fraction(3, 4)
-b = Fraction(6, 8)
-c = a + b
-print(c.num)
-print(c.denum)

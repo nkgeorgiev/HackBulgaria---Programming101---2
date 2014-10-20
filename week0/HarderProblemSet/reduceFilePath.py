@@ -7,6 +7,8 @@ def reduce_file_path(path):
             res.pop()
         elif not item == '' and not item == '.':
             res.append(item)
+    if len(res) == 0:
+        return "/"
     ans = ""
     for item in res:
         ans += "/" + item

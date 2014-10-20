@@ -49,17 +49,3 @@ class Store():
 
     def total_income(self):
         return self.total
-
-
-store = Store('Laptop.bg')
-smarthphone = Smartphone('Hack Phone', 500, 820, 7, 10)
-laptop = Laptop('HP HackBook', 1000, 1243, 1000, 4)
-#store.load_new_products(smarthphone, 20)
-store.load_new_products(laptop, 10)
-
-print(store.list_products(laptop))
-store.load_new_products(smarthphone, 2)
-print(store.sell_product(smarthphone))  # True
-print(store.sell_product(smarthphone))  # True
-#print(store.sell_product(smarthphone))
-print(store.total_income())

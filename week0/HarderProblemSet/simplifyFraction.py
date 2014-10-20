@@ -14,11 +14,3 @@ def simplify_fraction(fraction):
     nom //= g
     denum //= g
     return (nom, denum)
-
-
-def main():
-    print(simplify_fraction((63, 9)))
-
-
-if __name__ == '__main__':
-    main()
