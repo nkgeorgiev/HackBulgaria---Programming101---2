@@ -22,9 +22,11 @@ class Fight:
             first.take_damage(second.attack())
 
         if self.hero.is_alive():
-            print(self.hero.known_as() + " has won")
+            print(self.hero.name + " has won")
+            return True
         else:
             print(self.orc.name + " has won")
+            return False
 
 
 

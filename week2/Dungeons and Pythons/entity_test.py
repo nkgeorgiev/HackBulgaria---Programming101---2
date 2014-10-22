@@ -55,7 +55,7 @@ class TestEntity(unittest.TestCase):
         self.assertTrue(self.test_entity.has_weapon())
 
     def test_attack_without_weapon(self):
-        self.assertEqual(self.test_entity.attack(), 0)
+        self.assertEqual(self.test_entity.attack(), 1)
 
     def test_attack(self):
         weapon = Weapon("Axe", 30, 0.2)

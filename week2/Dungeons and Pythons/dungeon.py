@@ -1,12 +1,13 @@
 from hero import Hero
 from orc import Orc
+from fight import Fight
 
 
 class Dungeon:
     def __init__(self, filepath):
         self.map = self.__set_map(filepath)
         self.players = {}
-        self.height = len(self.map) - 1
+        self.height = len(self.map)
         self.width = len(self.map[0]) - 1
 
     def __set_map(self, filepath):
@@ -37,29 +38,129 @@ class Dungeon:
                     return True
         return False
 
+    def move_right(self, player_name, x, y,t):
+        player = self.players[player_name][0]
+        if y + 1 > self.width:
+            return False
+        if self.map[x][y+1] == '.':
+            y += 1
+            self.map[x][y] = t
+            self.map[x][y-1] = '.'
+            return True
+        if self.map[x][y+1] in ["H", "O"]:
+            enemy_name = self.get_player_by_coordinates(x, y+1)
+            enemy = self.players[enemy_name][0]
+            result = Fight(player, enemy).simulate_fight()
+            y += 1
+            if result:
+                self.map[x][y] = t
+                self.map[x][y-1] = '.'
+                del self.players[enemy_name]
+            else:
+                self.map[x][y-1] = '.'
+                del self.players[player_name]
+            return True
+
+        return False
+
+    def move_left(self, player_name, x, y, t):
+        player = self.players[player_name][0]
+        if y - 1 <= 0:
+            return False
+        if self.map[x][y-1] == '.':
+            y -= 1
+            self.map[x][y] = t
+            self.map[x][y+1] = '.'
+            return True
+        if self.map[x][y-1] in ["H", "O"]:
+
+            enemy_name = self.get_player_by_coordinates(x, y-1)
+            enemy = self.players[enemy_name][0]
+            result = Fight(player, enemy).simulate_fight()
+            y -= 1
+            if result:
+                self.map[x][y] = t
+                self.map[x][y+1] = '.'
+                del self.players[enemy_name]
+            else:
+                self.map[x][y+1] = '.'
+                del self.players[player_name]
+            return True
+
+        return False
+
+    def move_up(self, player_name, x, y, t):
+        player = self.players[player_name][0]
+        if x - 1 <= 0:
+            return False
+        if self.map[x-1][y] == '.':
+            x -= 1
+            self.map[x][y] = t
+            self.map[x+1][y] = '.'
+            return True
+        if self.map[x-1][y] in ["H", "O"]:
+
+            enemy_name = self.get_player_by_coordinates(x-1, y)
+            enemy = self.players[enemy_name][0]
+            result = Fight(player, enemy).simulate_fight()
+            x -= 1
+            if result:
+                self.map[x][y] = t
+                self.map[x+1][y] = '.'
+                del self.players[enemy_name]
+            else:
+                self.map[x+1][y] = '.'
+                del self.players[player_name]
+            return True
+
+        return False
+
+    def move_down(self, player_name, x, y, t):
+        player = self.players[player_name][0]
+        if x + 1 >= self.height:
+            return False
+        if self.map[x+1][y] == '.':
+            x += 1
+            self.map[x][y] = t
+            self.map[x-1][y] = '.'
+            return True
+        if self.map[x+1][y] in ["H", "O"]:
+
+            enemy_name = self.get_player_by_coordinates(x+1, y)
+            enemy = self.players[enemy_name][0]
+            result = Fight(player, enemy).simulate_fight()
+            x += 1
+            if result:
+                self.map[x][y] = t
+                self.map[x-1][y] = '.'
+                del self.players[enemy_name]
+            else:
+                self.map[x-1][y] = '.'
+                del self.players[player_name]
+            return True
+
+        return False
+
     def move(self, player_name, direction):
         player = self.players[player_name]
         x = player[1]
         y = player[2]
-        if direction == "left":
-            if y + 1 < self.width and self.map[x][y+1] == ".":
-                y += 1
-                return True
+        t = self.map[x][y]
 
-        elif direction == "right":
-            if y - 1 >= 0 and self.map[x][y-1] == ".":
+        if direction == "right":
+            return self.move_right(player_name, x, y, t)
 
-                y -= 1
-                return True
+        elif direction == "left":
+            return self.move_left(player_name, x, y, t)
 
         elif direction == "up":
-            if x - 1 >= 0 and self.map[x-1][y] == ".":
-                x -= 1
-                return True
+            return self.move_up(player_name, x, y, t)
 
         elif direction == "down":
-            if x + 1 < self.width and self.map[x+1][y] == ".":
-                x += 1
-                return True
-        return False
+            return self.move_down(player_name, x, y, t)
 
+    def get_player_by_coordinates(self, x, y):
+        for player in self.players.keys():
+            if self.players[player][1] == x and self.players[player][2] == y:
+                return player
+        return False
