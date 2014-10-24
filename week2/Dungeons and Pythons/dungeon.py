@@ -1,4 +1,3 @@
-from hero import Hero
 from orc import Orc
 from fight import Fight
 
@@ -38,7 +37,7 @@ class Dungeon:
                     return True
         return False
 
-    def move_right(self, player_name, x, y,t):
+    def move_right(self, player_name, x, y, t):
         player = self.players[player_name][0]
         if y + 1 > self.width:
             return False

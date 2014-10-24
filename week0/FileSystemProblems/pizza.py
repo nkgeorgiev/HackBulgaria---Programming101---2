@@ -8,22 +8,19 @@ def pizza():
     last_command = None
     current_order = {}
     filename_dict = {}
-    
     command = input("Enter command > ")
     while True:
         args = command.split(' ')
-        # args[0] is the command and the others are arguments 
-        
+        # args[0] is the command and the others are arguments
+
         #-----------------------------------------------
         if len(args) == 3 and args[0] == "take":
             name = args[1]
             price = float(args[2])
-            
             if name not in current_order.keys():
                 current_order[name] = price
             else:
                 current_order[name] += price
-                
             print("taking order from %s for %.2f" % (name, price))
             has_changed = True
             last_command = "take"
@@ -32,7 +29,6 @@ def pizza():
         elif len(args) == 1 and args[0] == "status":
             for name in current_order.keys():
                 print("%s - %.2f" % (name, current_order[name]))
-                
             last_command = "status"
 
         #-----------------------------------------------
@@ -40,11 +36,9 @@ def pizza():
             ts = time()
             stamp = datetime.fromtimestamp(ts).strftime('%Y_%m_%d_%H_%M_%S')
             filename = "orders_"+stamp
-            
             with open(filename, 'w') as file:
                 for name in current_order.keys():
                     file.write("%s - %.2f\n" % (name, current_order[name]))
-                    
             print("saved the current order to %s" % (filename))
             has_changed = False
             last_command = "save"
@@ -56,7 +50,6 @@ def pizza():
 
             for key in filename_dict.keys():
                 print("[%d] - %s" % (key, filename_dict[key]))
-                
             last_command = "list"
 
         #-----------------------------------------------

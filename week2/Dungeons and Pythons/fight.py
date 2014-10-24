@@ -1,5 +1,3 @@
-from hero import Hero
-from orc import Orc
 import random
 
 

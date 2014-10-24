@@ -33,7 +33,7 @@ class TestDungeon(unittest.TestCase):
         for line in self.l:
             self.list.append(list(line))
 
-        self.test_orc = Orc("Garosh",90, 1.2)
+        self.test_orc = Orc("Garosh", 100, 1)
         self.test_hero = Hero("Varyan", 100, "test")
         self.spawn_orc = self.dung.spawn("player2", self.test_orc)
         self.spawn_hero = self.dung.spawn("player1", self.test_hero)
