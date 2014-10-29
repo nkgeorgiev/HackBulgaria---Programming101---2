@@ -71,21 +71,24 @@ class Playlist:
         with open(filename, "w") as file:
             file.write(json.dumps(d))
 
-    def load(self, filename):
-        self.songs = []
-        self.totalLength = 0
 
-        with open(filename) as file:
-            string = file.read()
+def load(filename):
+    p = Playlist("")
+    p.songs = []
+    p.totalLength = 0
 
-        d = json.loads(string)
+    with open(filename) as file:
+        string = file.read()
 
-        for key in d.keys():
-            if key == "name":
-                self.name = d[key]
-            elif key == "songs":
-                lsongs = d[key]
+    d = json.loads(string)
 
-        for s in lsongs:
-            self.songs.append(Song(s["title"], s["artist"], s["album"],
-                                   s["rating"], s["length"], s["bitrate"]))
+    for key in d.keys():
+        if key == "name":
+            p.name = d[key]
+        elif key == "songs":
+            lsongs = d[key]
+
+    for s in lsongs:
+        p.songs.append(Song(s["title"], s["artist"], s["album"],
+                            s["rating"], s["length"], s["bitrate"], s["path"]))
+    return p

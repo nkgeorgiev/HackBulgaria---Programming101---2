@@ -1,1 +1,1 @@
-{"name": "test_playlist", "songs": [{"title": "Highway to Hell", "album": "Highway to Hell", "rating": 5, "bitrate": 128, "artist": "AC/DC", "length": 208}, {"title": "Back in Black", "album": "Back in Black", "rating": 4, "bitrate": 256, "artist": "ACDC", "length": 200}]}
+{"name": "test_playlist", "songs": [{"path": "sda", "album": "Highway to Hell", "title": "Highway to Hell", "artist": "AC/DC", "rating": 5, "length": 208, "bitrate": 128}, {"path": "sdb", "album": "Back in Black", "title": "Back in Black", "artist": "ACDC", "rating": 4, "length": 200, "bitrate": 256}]}

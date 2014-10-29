@@ -6,14 +6,13 @@ import unittest
 class TestPlaylist(unittest.TestCase):
     def setUp(self):
         self.playlist = Playlist("test_playlist")
-        self.test_song = Song("Highway to Hell", "AC/DC", "Highway to Hell", 5, 208, 128)
-        self.test_song2 = Song("Back in Black", "ACDC", "Back in Black", 4, 200, 256)
+        self.test_song = Song("Highway to Hell", "AC/DC", "Highway to Hell", 5, 208, 128, "sda")
+        self.test_song2 = Song("Back in Black", "ACDC", "Back in Black", 4, 200, 256, "sdb")
 
         self.playlist.add_song(self.test_song)
         self.playlist.add_song(self.test_song2)
         self.playlist.save("sdadada.json")
         #self.playlist.load("sdadada.json")
-
     def test_init(self):
         self.assertEqual("test_playlist", self.playlist.name)
 
