@@ -70,7 +70,8 @@ def menu():
                 if p is not None:
                     p.terminate()
                     os.system("pkill -9 play")
-                p = multiprocessing.Process(target=playSong, args=(playlist.songs, number))
+                p = multiprocessing.Process(target=playSong,
+                    args=(playlist.songs, number))
                 p.start()
                 print()
         elif choice == "6":
