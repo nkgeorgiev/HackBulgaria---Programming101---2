@@ -74,6 +74,9 @@ def menu():
                 p.start()
                 print()
         elif choice == "6":
+            if p is not None:
+                p.terminate()
+                os.system("pkill -9 play")
             print("Thank you! Come again!")
             sys.exit(0)
 
