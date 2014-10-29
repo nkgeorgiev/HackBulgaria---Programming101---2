@@ -76,19 +76,21 @@ def load(filename):
     p = Playlist("")
     p.songs = []
     p.totalLength = 0
+    try:
+        with open(filename) as file:
+            string = file.read()
 
-    with open(filename) as file:
-        string = file.read()
+        d = json.loads(string)
 
-    d = json.loads(string)
+        for key in d.keys():
+            if key == "name":
+                p.name = d[key]
+            elif key == "songs":
+                lsongs = d[key]
 
-    for key in d.keys():
-        if key == "name":
-            p.name = d[key]
-        elif key == "songs":
-            lsongs = d[key]
-
-    for s in lsongs:
-        p.songs.append(Song(s["title"], s["artist"], s["album"],
-                            s["rating"], s["length"], s["bitrate"], s["path"]))
-    return p
+        for s in lsongs:
+            p.songs.append(Song(s["title"], s["artist"], s["album"],
+                                s["rating"], s["length"], s["bitrate"], s["path"]))
+        return p
+    except:
+        print("File does not exist!")
