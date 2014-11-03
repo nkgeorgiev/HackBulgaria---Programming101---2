@@ -4,12 +4,12 @@ class Graph:
 
     def add_edge(self, node_a, node_b):
         if node_b not in self.edges.keys():
-            self.edges[node_b] = []
+            self.edges[node_b] = set()
         if node_a not in self.edges.keys():
-            self.edges[node_a] = []
-            self.edges[node_a].append(node_b)
+            self.edges[node_a] = set()
+            self.edges[node_a].add(node_b)
         else:
-            self.edges[node_a].append(node_b)
+            self.edges[node_a].add(node_b)
 
     def get_neighbours_for(self, node):
         try:

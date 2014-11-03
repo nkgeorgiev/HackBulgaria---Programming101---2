@@ -8,16 +8,16 @@ class GraphTest(unittest.TestCase):
         self.g.add_edge("I", "M")
         self.g.add_edge("M", "K")
         self.g.add_edge("I", "K")
-        #print(self.g)
+        print(self.g)
 
     def test_add_edge(self):
-        d = {"I": ["M", "K"], "M": ["K"], "K": []}
+        d = {"I": set(["M", "K"]), "M": set(["K"]), "K": set()}
         self.assertDictEqual(d, self.g.edges)
 
     def test_get_neighbours_for(self):
-        l = ["M", "K"]
+        s = set(["M", "K"])
         n = self.g.get_neighbours_for("I")
-        self.assertListEqual(l, n)
+        self.assertSetEqual(s, n)
 
     def test_dfs(self):
         s = set(["I", "M", "K"])
