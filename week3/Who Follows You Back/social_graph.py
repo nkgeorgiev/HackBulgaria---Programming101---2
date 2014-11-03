@@ -1,7 +1,7 @@
 from graph import Graph
 import requests
 
-auth = ("03e53e3d87a8c9a925aab473fdc6535bda205d28", "")
+auth = ("03e53e3d87a8c9a925aab4273fdc6535bda205d28", "")
 url = "https://api.github.com/users/{}/following"
 
 
