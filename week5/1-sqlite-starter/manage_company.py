@@ -4,8 +4,8 @@ import sqlite3
 class Company:
     def __init__(self):
         self.db = sqlite3.connect("company.db")
+        self.db.row_factory = sqlite3.Row
         self.cursor = self.db.cursor()
-        self.cursor.row_factory = sqlite3.Row
 
     def list_employees(self):
         result = self.cursor.execute(''' SELECT id, name, position from employees''')
@@ -36,7 +36,7 @@ class Company:
         self.db.commit()
 
     def delete_employee(self, id):
-        self.cursor.execute(''' DELETE FROM employees WHERE id = ? ''',(id,))
+        self.cursor.execute(''' DELETE FROM employees WHERE id = ? ''', (id,))
         self.db.commit()
 
     def update_employee(self, id):
