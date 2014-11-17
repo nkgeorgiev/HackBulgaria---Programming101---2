@@ -1,5 +1,6 @@
 import sys
 import unittest
+import time
 
 sys.path.append("..")
 
@@ -10,17 +11,16 @@ class SqlManagerTests(unittest.TestCase):
 
     def setUp(self):
         sql_manager.create_clients_table()
-        sql_manager.register('Tester', '123')
+        sql_manager.register('Tester', '123', "test@example.com")
 
     def tearDown(self):
         sql_manager.cursor.execute('DROP TABLE clients')
 
     def test_register(self):
-        sql_manager.register('Dinko', '123123')
+        sql_manager.register('Dinko', '123123', "dinko@example.com")
 
         sql_manager.cursor.execute('SELECT Count(*)  FROM clients WHERE username = (?) AND password = (?)', ('Dinko', '123123'))
         users_count = sql_manager.cursor.fetchone()
-
         self.assertEqual(users_count[0], 1)
 
     def test_login(self):
