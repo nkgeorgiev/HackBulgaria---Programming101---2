@@ -29,9 +29,14 @@ class WebCrawler:
             self.visited.append(page.url)
 
     def crawl(self, url):
+        if url[len(url) - 1] == '/':
+            url = url[:len(url)-1]
         if url in self.visited:
             return
-        r = requests.get(url)
+        try:
+            r = requests.get(url)
+        except:
+            return
         html = r.text
         soup = BeautifulSoup(html)
         self.visited.append(url)
@@ -43,19 +48,21 @@ class WebCrawler:
             l = urllib.parse.urljoin(url, link.get("href"))
             self.queue.append(l)
 
-    def tmp(self, url):
+    def BFS(self, url):
         i = 1
-        if os.path.exists("queue.json"):
-            with open("queue.json", 'r') as file:
-                s = file.read()
-                self.queue = json.loads(s)
+        if url in self.visited:
+            if os.path.exists("queue.json"):
+                with open("queue.json", 'r') as file:
+                    s = file.read()
+                    self.queue = json.loads(s)
         self.queue.append(url)
         while len(self.queue) > 0:
             url = self.queue.pop(0)
-            print(url)
             if url is not None and 'javascript' not in url:
-                self.crawl(url)
+                print(url)
                 i += 1
+                self.crawl(url)
+
             if i % 100 == 0:
                 with open("queue.json", 'w') as file:
                     s = json.dumps(self.queue[:50])
@@ -63,4 +70,4 @@ class WebCrawler:
 
 
 crawler = WebCrawler("test.db")
-crawler.tmp("http://en.wikipedia.org/wiki/Breadth-first_search")
+crawler.BFS("https://hackbulgaria.com")
