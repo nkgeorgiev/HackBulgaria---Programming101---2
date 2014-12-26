@@ -30,10 +30,10 @@ class Expression:
     def generate_expression(self):
         op = random.choice(list(self.functions.keys()))
         if op == "^":
-            a = random.randint(1, 3)
+            a = random.randint(1, 5)
             b = random.randint(1, 3)
         else:
-            a = random.randint(1, 10)
+            a = random.randint(-10, 10)
             b = random.randint(1, 10)
         expr = "{} {} {} = ".format(a, op, b)
         ans = self.functions[op](a, b)
@@ -82,8 +82,7 @@ class DoYouEvenMath:
             elif choice == "exit":
                 break
             else:
-                print("wrong command")
-
+                print("Wrong Command")
 
 
 def main():
